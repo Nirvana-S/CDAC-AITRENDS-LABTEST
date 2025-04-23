@@ -30,9 +30,19 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, train_size = 0.7, test
 model = LinearRegression()
 model.fit(X_train, y_train)
 
-
 print("Coefficients:")
 for feat, coef in zip(features, model.coef_):
     print(f"{feat}: {coef}")
+
+with open(output_path, "w") as f:
+    f.write("Intercept:\n")
+    f.write(str(model.intercept_) + "\n\n")
+    f.write("Coefficients:\n")
+    for feat, coef in zip(features, model.coef_):
+        f.write(f"{feat}: {coef}\n")
+
+print(f"Model trained and saved to {output_path}")
+
+
 
 

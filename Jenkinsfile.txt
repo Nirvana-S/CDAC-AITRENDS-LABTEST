@@ -1,0 +1,35 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone Repo') {
+            steps {
+                git 'https://github.com/Nirvana-S/CDAC-AITRENDS-LABTEST.git'
+            }
+        }
+
+        stage('Build Image') {
+            steps {
+                script {
+                    docker.build('house-model')
+                }
+            }
+        }
+
+        stage('Train Model') {
+            steps {
+                script {
+                    docker.image('house-model').inside {
+                        sh 'python test.py'
+                    }
+                }
+            }
+        }
+
+        stage('Archive Model (Deploy)') {
+            steps {
+                archiveArtifacts artifacts: 'model/house_model.txt', fingerprint: true
+            }
+        }
+    }
+}
