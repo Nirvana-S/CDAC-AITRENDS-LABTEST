@@ -34,14 +34,14 @@ print("Coefficients:")
 for feat, coef in zip(features, model.coef_):
     print(f"{feat}: {coef}")
 
-with open(output_path, "w") as f:
+with open("house_model.txt", "w") as f:
     f.write("Intercept:\n")
     f.write(str(model.intercept_) + "\n\n")
     f.write("Coefficients:\n")
     for feat, coef in zip(features, model.coef_):
         f.write(f"{feat}: {coef}\n")
 
-print(f"Model trained and saved to {output_path}")
+print(f"Model trained and saved to house_model.txt")
 
 
 
